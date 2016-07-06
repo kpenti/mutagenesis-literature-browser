@@ -1,0 +1,83 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="A layout example that shows off a responsive email layout.">
+
+    <title>Structures with epitopes</title>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-min.css">
+	<link rel="stylesheet" href="css/layouts/email.css">
+</head>
+<body>
+
+<div class="pure-g-r content" id="layout">
+
+	<div ng-controller="MyController">
+
+	<div class="pure-u" id="nav">
+		<a href="#" class="nav-menu-button">Menu</a>
+
+		<div class="nav-inner">
+
+			<div class="pure-menu pure-menu-open">
+				<ul>
+					<li ng-repeat="(iedb_pubmed_id, iedb_pdb) in iedb_list" ng-click="change_papers(iedb_pubmed_id)" ng-class="{selected:iedb_pubmed_id==current_pubmed_id}">
+						<a href="#">{{iedb_pdb}} <span style="display: none;" class="email-count">(2)</span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+<div class="pure-u-1" id="list">
+
+	<div href="" class="email-item pure-g" ng-repeat="(paper_key, paper_value) in papers_list" ng-click="show_paper(paper_key)" ng-class="{'email-item-selected':current_citation==paper_key}">
+		<div class="pure-u-1">
+			<h5 class="email-name">{{paper_value.date_submitted}} {{paper_value.author}} {{paper_value.journal}} {{paper_key}}</h5>
+			<h4 class="email-subject">{{paper_value.matches}}</h4>
+			<p class="email-desc">
+				{{paper_value.title}}
+			</p>
+		</div>
+	</div>
+
+	
+</div>
+
+<div class="pure-u-1" id="main">
+	<div class="email-content">
+		<div class="email-content-header pure-g">
+			<div class="pure-u-1-2">
+				<h1class="email-content-title">By <a>{{current_paper.author}} {{current_paper.journal}}</a> : <span>{{current_paper.date_submitted}}</span></h1>
+				<p class="email-content-subtitle">
+					{{current_paper.title}} {{current_paper.doi}} {{current_paper.citation_id}} {{current_citation}}
+				</p>
+			</div>
+
+			<div class="pure-u-1-2 email-content-controls">
+				<button class="pure-button secondary-button">Flag</button>
+				<button class="pure-button secondary-button">Discard</button>
+				<a href="{{current_paper.doi}}" target="_blank" class="pure-button secondary-button">Visit</a>
+			</div>
+		</div>
+
+		<div class="email-content-body">
+			<pre ng-bind-html="current_abstract"></pre><br />
+			<pre>{{current_paper.article_mesh}}</pre>
+		</div>
+	</div>
+</div>
+
+	</div>
+
+</div>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+	<script src="http://code.angularjs.org/1.2.8/angular.js"></script>  
+	<script src="http://code.angularjs.org/1.2.8/angular-sanitize.js"></script>  
+	<script src="js/app.js"></script>
+
+</body>
+</html>
